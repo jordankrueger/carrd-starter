@@ -44,13 +44,12 @@ test("contact form, if present, is wired to /api/submit (no live submit)", async
     return;
   }
   // Assert wiring only — never POST during automated runs (would send a real email).
+  // Works for the contact form (textarea message) AND email-only newsletter signups
+  // (hidden message field): require an email input + a message field of some kind.
   await expect(form).toHaveAttribute("method", /post/i);
-  await expect(page.locator('input[name="email"]')).toHaveAttribute(
+  await expect(form.locator('input[name="email"]')).toHaveAttribute(
     "required",
     "",
   );
-  await expect(page.locator('textarea[name="message"]')).toHaveAttribute(
-    "required",
-    "",
-  );
+  await expect(form.locator('[name="message"]')).toHaveCount(1);
 });
