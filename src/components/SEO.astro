@@ -2,6 +2,13 @@
 import { site } from "../site.config";
 
 const canonicalUrl = `https://${site.domain}`;
+
+// A "summary_large_image" card with no image renders as a broken/blank card, so
+// only claim the large format when the site actually ships one. Convention:
+// drop a 1200x630 image at public/og.jpg and set `ogImage: "/og.jpg"`.
+const ogImage = site.ogImage
+  ? new URL(site.ogImage, canonicalUrl).href
+  : undefined;
 ---
 
 <title>{site.title}</title>
@@ -11,6 +18,14 @@ const canonicalUrl = `https://${site.domain}`;
 <meta property="og:description" content={site.description} />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:type" content="website" />
-<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={site.title} />
 <meta name="twitter:description" content={site.description} />
+<meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
+{
+  ogImage && (
+    <>
+      <meta property="og:image" content={ogImage} />
+      <meta name="twitter:image" content={ogImage} />
+    </>
+  )
+}

@@ -3,6 +3,9 @@ export interface LinkItem { label: string; href: string }
 export interface SiteConfig {
   domain: string; title: string; description: string;
   themeColor: string; accentColor: string; analyticsId?: string;
+  /** Path or URL to a 1200x630 social card, e.g. "/og.jpg". Omit and the
+   *  Twitter card falls back to "summary" rather than a broken large card. */
+  ogImage?: string;
   hero: { heading: string; subheading?: string; image?: string };
   links?: LinkItem[];
   cta?: { label: string; href: string };
