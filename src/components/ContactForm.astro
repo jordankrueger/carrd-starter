@@ -19,6 +19,12 @@ import { site } from "../site.config";
           <span>Message</span>
           <textarea name="message" rows="5" required></textarea>
         </label>
+        <div class="form-hp" aria-hidden="true">
+          <label>
+            Leave this field empty
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </label>
+        </div>
         <input type="hidden" name="_site" value={site.domain} />
         <button class="button" type="submit">Send</button>
       </form>

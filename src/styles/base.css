@@ -215,3 +215,14 @@ p {
     width: 100%;
   }
 }
+
+/* Honeypot: kept out of view for humans and assistive tech, still submitted by
+   bots that fill every field. Positioned off-canvas rather than display:none,
+   because some bots skip hidden inputs. */
+.form-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

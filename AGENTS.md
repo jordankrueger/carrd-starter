@@ -9,6 +9,11 @@ migrate Carrd one-pagers onto Cloudflare Pages.
   CampaignHelp, or any client material into this template or its clones.
 - **No secrets in the repo.** `functions/api/submit.ts` reads `RESEND_API_KEY`, `FORM_TO`,
   `FORM_FROM` from Cloudflare Pages env bindings only. Never commit keys or `.env` files.
+- **Never let the request body choose an outbound URL.** An earlier version of
+  `functions/api/submit.ts` accepted an `_n8n` field and POSTed the submission to whatever URL
+  it held, which let anyone use the Pages Function as a relay to any host (server-side request
+  forgery). Removed 2026-08-10. If a site genuinely needs a webhook, put its URL in a Pages env
+  binding — the same way `LISTMONK_URL` is handled — never in a form field.
 - **Per-site values live in `src/site.config.ts`** — don't hardcode copy, colors, or domains elsewhere.
 - Keep it static: zero client JS except the optional, config-gated analytics snippet.
 
